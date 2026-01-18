@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
-      versopm: v1
+      version: v1
   template:
     metadata:
       labels:
