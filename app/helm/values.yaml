@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: 131710902449.dkr.ecr.eu-west-2.amazonaws.com/navu-app
+  pullPolicy: Always
+  tag: "v1"
+
+service:
+  type: LoadBalancer # Easy for testing, but in Prod we use Ingress + ClusterIP
+  port: 80
+  targetPort: 5000
+
+resources: 
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
