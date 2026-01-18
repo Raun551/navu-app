@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-v2
+  labels:
+    app: {{ .Chart.Name }}
+    version: v2
+spec:
+  replicas: 1 # Canary usually starts small
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        version: v2
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:v2" # Point to v2 image
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
