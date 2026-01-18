@@ -6,8 +6,8 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return jsonify({
-        "message": "Hello Navu! The platform is live.",
-        "version": "1.0.0",
+        "message": "Hello Navu! The platform is live with V2.",
+        "version": "2.0.0",
         "environment": os.environ.get("ENV", "local")
     })
 

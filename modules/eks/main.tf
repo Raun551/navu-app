@@ -6,7 +6,7 @@ variable "environment" {}
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.21.0" 
+  version = "20.31.0" 
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
 
@@ -19,6 +19,25 @@ module "eks" {
 
 
   enable_irsa = true
+  node_security_group_additional_rules = {
+    ingress_self_all = {
+      description = "Node to node all ports/protocols"
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+      type        = "ingress"
+      self        = true
+    }
+    # ALLOW CONTROL PLANE TO TALK TO WEBHOOKS
+    ingress_cluster_istio_webhook = {
+      description                   = "Cluster API to Istio Webhook"
+      protocol                      = "tcp"
+      from_port                     = 15017
+      to_port                       = 15017
+      type                          = "ingress"
+      source_cluster_security_group = true
+    }
+  }
 
 
   eks_managed_node_groups = {
