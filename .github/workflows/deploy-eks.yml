@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: dev/eks  # <--- vital: run commands inside the correct folder
+        working-directory: infrastructure-live/dev/eks  # <--- vital: run commands inside the correct folder
 
     steps:
       - name: Checkout Code
